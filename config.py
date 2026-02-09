@@ -1,7 +1,7 @@
 # Configuration settings for TrafficLightApp
 
 # Model settings
-MODEL_PATH = 'chroma-trafficlightmodel (2).pt'
+MODEL_PATH = 'model.pt'
 CONFIDENCE_THRESHOLD = 0.7
 CLASS_NAMES = {0: 'Red', 1: 'Green', 2: 'Off', 3: 'Yellow'}
 
