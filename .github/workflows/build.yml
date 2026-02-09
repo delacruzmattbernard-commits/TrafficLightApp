@@ -3,16 +3,26 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.9'
+        python-version: '3.10'
+    - name: Cache Android SDK and NDK
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.buildozer/android/platform/android-sdk
+          ~/.buildozer/android/platform/android-ndk-r25b
+        key: ${{ runner.os }}-buildozer-${{ hashFiles('buildozer.spec') }}
+        restore-keys: |
+          ${{ runner.os }}-buildozer-
     - name: Install dependencies
       run: |
         sudo apt update
-        sudo apt install -y python3-pip openjdk-11-jdk
+        sudo apt install -y python3-pip openjdk-17-jdk git unzip libffi-dev libssl-dev autoconf libtool pkg-config zlib1g-dev libbz2-dev libsqlite3-dev libncurses5-dev libncursesw5-dev tk-dev libgdbm-dev libnss3-dev libreadline-dev wget python3-dev libopenblas-dev liblapack-dev gfortran cmake
         pip3 install buildozer cython
     - name: Build APK
       run: buildozer android debug

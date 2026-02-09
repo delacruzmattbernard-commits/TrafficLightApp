@@ -14,7 +14,6 @@ from audio_utils import AudioManager
 from logger import setup_logger
 from config import CLASS_NAMES, CAMERA_INDEX_DEFAULT, FPS, AUDIO_INTERVAL_RED, IDLE_TIMEOUT
 from detector import TrafficLightDetector
-from bluetooth_manager import BluetoothManager
 import platform
 
 class TrafficLightAppUI(GridLayout):
