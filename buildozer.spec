@@ -16,7 +16,7 @@ source.dir = .
 source.include_exts = py,png,jpg,kv,atlas
 
 # (list) List of inclusions using pattern matching
-source.include_patterns = assets/*,images/*.png,*.pt,logs/*
+source.include_patterns = assets/*,images/*.png,*.pt
 
 # (list) Source files to exclude (let empty to not exclude anything)
 #source.exclude_exts = spec
@@ -96,7 +96,7 @@ android.minapi = 21
 #android.sdk = 20
 
 # (str) Android NDK version to use
-#android.ndk = 17c
+android.ndk = 25b
 
 # (int) Android NDK API to use. This is the minimum API your app will support, it should usually match android.minapi.
 #android.ndk_api = 21

@@ -1,0 +1,7 @@
+kivy==2.2.1
+opencv-python-headless==4.8.0.76
+numpy
+plyer
+ultralytics
+bleak
+pyjnius

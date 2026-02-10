@@ -1,3 +1,5 @@
+import os
+
 # Configuration settings for TrafficLightApp
 
 # Model settings

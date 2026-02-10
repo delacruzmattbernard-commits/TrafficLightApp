@@ -3,6 +3,12 @@ import asyncio
 import threading
 from config import BLUETOOTH_DEVICE_NAME, BLUETOOTH_TIMEOUT
 
+try:
+    import bleak
+    BLEAK_AVAILABLE = True
+except ImportError:
+    BLEAK_AVAILABLE = False
+
 class BluetoothManager:
     def __init__(self, logger):
         self.logger = logger
@@ -37,11 +43,10 @@ class BluetoothManager:
         try:
             if platform.system() == 'Windows':
                 # For Windows, use Bleak or mock
-                try:
-                    import bleak
+                if BLEAK_AVAILABLE:
                     # Run async Bleak operations synchronously
                     asyncio.run(self._send_bleak_command(command))
-                except ImportError:
+                else:
                     import mock_bluetooth as bluetooth
                     if self.bluetooth_socket is None:
                         # Discover and connect to CHROMA_ESP32
@@ -95,10 +100,12 @@ class BluetoothManager:
     async def _send_bleak_command(self, command):
         """Async function to send command via Bleak."""
         try:
+            import bleak
             # Discover devices with timeout
-            devices = await asyncio.wait_for(bleak.discover(), timeout=BLUETOOTH_TIMEOUT)
+            scanner = bleak.BleakScanner()
+            devices = await asyncio.wait_for(scanner.discover(), timeout=BLUETOOTH_TIMEOUT)
             target_device = None
-            for device in devices:
+            for device in devices.values():
                 if device.name == BLUETOOTH_DEVICE_NAME:
                     target_device = device
                     break
